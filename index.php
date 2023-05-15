@@ -16,7 +16,7 @@ $allArtikel = mysqli_query($mysqli, "SELECT tb_artikel.*,
                             ORDER BY id DESC
                             ");
 $batas = 2;
-$halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+$halaman = isset($_GET['halaman']) ? (int) $_GET['halaman'] : 1;
 $halaman_awal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;
 
 $previous = $halaman - 1;
@@ -42,15 +42,17 @@ $artikel = mysqli_query($mysqli, "SELECT tb_artikel.*,
                             limit 4
                             ");
 
-$berita =  mysqli_query($mysqli, "SELECT tb_berita.*,
+$berita = mysqli_query($mysqli, "SELECT tb_berita.*,
                           tb_kategori.nama_kategori,
-tb_users.nama_operator
-FROM tb_berita
-INNER JOIN tb_kategori ON tb_berita.id_kategori = tb_kategori.id
-INNER JOIN tb_users ON tb_berita.user_id = tb_users.id
-ORDER BY id DESC
-limit 4
+                          tb_users.nama_operator
+                          FROM tb_berita
+                          INNER JOIN tb_kategori ON tb_berita.id_kategori = tb_kategori.id
+                          INNER JOIN tb_users ON tb_berita.user_id = tb_users.id
+                          ORDER BY id DESC
+                          limit 4
 ");
+
+$about = mysqli_query($mysqli, "SELECT * from tb_tentang");
 $kategori = mysqli_query($mysqli, "SELECT * from tb_kategori");
 $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
 
@@ -118,7 +120,9 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
           <a class="text-muted" href="#" aria-label="Search">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
+              viewBox="0 0 24 24" focusable="false">
               <title>Search</title>
               <circle cx="10.5" cy="10.5" r="7.5" />
               <path d="M21 21l-5.2-5.2" />
@@ -133,16 +137,17 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
         <?php
         while ($data_menu = mysqli_fetch_array($menu)) {
           $i = 1;
-          
-        ?>
+
+          ?>
           <a class="p-2 text-muted" href="#<?= $i++ ?>"><?= $data_menu['nama_menu'] ?></a>
-          
-        <?php  } ?>
+
+        <?php } ?>
       </nav>
     </div>
 
     <div class="container py-5">
-      <div class="jumbotron text-white jumbotron-image shadow" style="background-image: url(https://diperpa.badungkab.go.id/storage/olds/diperpa/Cara-Budidaya-Buah-Naga_649711.jpg);">
+      <div class="jumbotron text-white jumbotron-image shadow"
+        style="background-image: url(https://diperpa.badungkab.go.id/storage/olds/diperpa/Cara-Budidaya-Buah-Naga_649711.jpg);">
         <h2 class="mb-4">
           Join For The Best Experience
         </h2>
@@ -156,14 +161,21 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
     <div class="row mb-2" id="1">
       <?php
       while ($data = mysqli_fetch_array($artikel)) {
-      ?>
+        ?>
         <div class="col-md-6">
-          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div
+            class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary"><?= $data['nama_kategori'] ?></strong>
+              <strong class="d-inline-block mb-2 text-primary">
+                <?= $data['nama_kategori'] ?>
+              </strong>
               <h3 class="mb-0">New post</h3>
-              <div class="mb-1 text-muted"><?= date('d-M-Y', strtotime($data['created_time'])) ?></div>
-              <p class="card-text mb-auto text-justify"><?= substr($data['content_artikel'], 0, 100) . '...' ?></p>
+              <div class="mb-1 text-muted">
+                <?= date('d-M-Y', strtotime($data['created_time'])) ?>
+              </div>
+              <p class="card-text mb-auto text-justify">
+                <?= substr($data['content_artikel'], 0, 100) . '...' ?>
+              </p>
               <a href="#" class="stretched-link">Continue reading</a>
             </div>
             <div class="col-auto d-none d-lg-block">
@@ -182,7 +194,7 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
       <div class="col-md-8 blog-main">
         <?php
         while ($dataArtikel = mysqli_fetch_array($new_artikel)) {
-        ?>
+          ?>
           <h3 class="pb-4 mb-4 font-italic border-bottom">
             Artikel
           </h3>
@@ -192,63 +204,81 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
               <?= $dataArtikel['judul_artikel'] ?>
 
             </h2>
-            <p class="blog-post-meta"><?= date('d-M-Y', strtotime($dataArtikel['created_time'])) ?> by <a href="#"><?= $dataArtikel['nama_operator'] ?></a></p>
-            <p class="text-justify"><?= $dataArtikel['content_artikel'] ?></p>
+            <p class="blog-post-meta">
+              <?= date('d-M-Y', strtotime($dataArtikel['created_time'])) ?> by <a href="#">
+                <?= $dataArtikel['nama_operator'] ?>
+              </a>
+            </p>
+            <p class="text-justify">
+              <?= $dataArtikel['content_artikel'] ?>
+            </p>
           </div><!-- /.blog-post -->
-        <?php  ?>
-        <?php  ?>
+          <?php ?>
+          <?php ?>
         <?php } ?>
         <h3 class="pb-4 mb-4 font-italic border-bottom">
-            Berita
-          </h3>
+          Berita
+        </h3>
         <?php while ($dataBerita = mysqli_fetch_array($berita)): ?>
-
-
+          <img width="200px" class="rounded float-right" src="admin/berita/image/<?= $dataBerita['cover'] ?>" alt="">
+          <p class="blog-post-meta">
           <div class="blog-post">
             <h2 class="blog-post-title">
               <?= $dataBerita['judul_berita'] ?>
             </h2>
-            <p class="blog-post-meta"><?= date('d-M-Y', strtotime($dataBerita['created_time'])) ?> by <a href="#"><?= $dataBerita['nama_operator'] ?></a></p>
-            <p class="text-justify"><?= $dataBerita['content_berita'] ?></p>
-          </div><!-- /.berita-post -->
-          <?php endwhile ?>
+              <?= date('d-M-Y', strtotime($dataBerita['created_time'])) ?> by <a href="#">
+                <?= $dataBerita['nama_operator'] ?>
+              </a>
+            </p>
+            <p class="text-justify">
+              <?= $dataBerita['content_berita'] ?>
+            </p>
+          </div>
+
+          <!-- /.berita-post -->
+        <?php endwhile ?>
 
         <nav class="blog-pagination">
           <ul class="pagination justify-content-center">
             <li class="page-item">
               <a class="page-link" <?php if ($halaman > 1) {
-                                      echo "href='?halaman=$previous'";
-                                    } ?>>Sebelumnya</a>
+                echo "href='?halaman=$previous'";
+              } ?>>Sebelumnya</a>
             </li>
             <?php
             for ($x = 1; $x <= $total_halaman; $x++) {
-            ?>
+              ?>
               <li class="page-item"><a class="page-link" href="?halaman=<?= $x ?>"><?= $x; ?></a></li>
-            <?php
+              <?php
             }
             ?>
             <li class="page-item">
               <a class="page-link" <?php if ($halaman < $total_halaman) {
-                                      echo "href='?halaman=$next'";
-                                    } ?>>Selanjutnya</a>
+                echo "href='?halaman=$next'";
+              } ?>>Selanjutnya</a>
             </li>
           </ul>
         </nav>
 
       </div><!-- /.row -->
-      <aside class="col-md-4 blog-sidebar" id="3">
-        <div class="p-4 mb-3 bg-light rounded">
-          <h4 class="font-italic">About</h4>
-          <p class="mb-0">Pertanian adalah kegiatan pemanfaatan sumber daya hayati yang dilakukan manusia untuk menghasilkan bahan pangan, bahan baku industri, atau sumber energi, serta untuk mengelola lingkungan hidupnya.[1] Kegiatan pemanfaatan sumber daya hayati yang termasuk dalam pertanian biasa dipahami orang sebagai budidaya tanaman atau bercocok tanam serta pembesaran hewan ternak, meskipun cakupannya dapat pula berupa pemanfaatan mikroorganisme dan bioenzim dalam pengolahan produk lanjutan, seperti pembuatan keju dan tempe, atau sekadar ekstraksi semata, seperti penangkapan ikan atau eksploitasi huta</p>
-        </div>
-
-
-      </aside><!-- /.blog-sidebar -->
+        <aside class="col-md-4 blog-sidebar" id="3">
+      <?php
+      while ($tentang = mysqli_fetch_array($about)) {
+        ?>
+          <div class="p-4 mb-3 bg-light rounded">
+            <h4 class="font-italic">About</h4>
+            <p class="mb-0">
+              <?= $tentang['content'] ?>
+            </p>
+          </div>
+          <?php } ?>
+        </aside><!-- /.blog-sidebar -->
 
   </main><!-- /.container -->
 
   <footer class="blog-footer">
-    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a
+        href="https://twitter.com/mdo">@mdo</a>.</p>
     <p>
       <a href="#">Back to top</a>
     </p>

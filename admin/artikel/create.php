@@ -97,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                     <div class="card-tools">
                                         <!-- This will cause the card to maximize when clicked -->
-                                        <a href="../../admin?page=artikel" class="btn btn-info">Kembali</a>
+                                        <a href="../dashboard.php?page=artikel"  class="btn btn-info">Kembali</a>
                                     </div>
                                     <!-- /.card-tools -->
                                 </div>

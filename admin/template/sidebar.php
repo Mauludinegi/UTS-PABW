@@ -72,7 +72,7 @@ $page = $_GET['page']; ?>
         </li>
         <li class="nav-item">
           <a href="../admin/dashboard.php?page=berita" class="nav-link  <?php if ($page == 'berita') { ?>active<?php } ?>">
-          <i class="nav-icon fas fa-th"></i>
+          <i class="nav-icon fas fa-newspaper"></i>
           <p>
               Berita
             </p>
@@ -80,7 +80,7 @@ $page = $_GET['page']; ?>
         </li>
         <li class="nav-item">
           <a href="../admin/dashboard.php?page=tentang" class="nav-link  <?php if ($page == 'tentang') { ?>active<?php } ?>">
-          <i class="nav-icon fas fa-th"></i>
+          <i class="nav-icon fas fa-address-card"></i>
           <p>
               tentang
             </p>

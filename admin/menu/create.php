@@ -4,19 +4,17 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 include("../../config.php");
 include('session.php');
+$id = @$_GET['id'];
 
 if (isset($_POST['submit'])) {
-    $nama_menu = @$_POST['nama_menu'];
-    $sql = "SELECT * FROM tb_menu WHERE nama_menu='$nama_menu'";
+    $nama_menu = @$_POST['menu'];
+    $sql = "SELECT * FROM tb_menu WHERE nama_menu='$id'";
     $result = mysqli_query($mysqli, $sql);
     if ($result->num_rows > 0) {
         echo "<script>alert('Nama menu sudah ada. Silahkan coba lagi!')</script>";
     } else {
         $result = mysqli_query($mysqli, "INSERT INTO tb_menu(nama_menu) VALUES('$nama_menu')");
-        echo "<script>
-        alert('data berhasil ditambahkan');
-        window.location.href='index.php';
-        </script>";
+        header("Location:../dashboard.php?page=menu");
     }
 }
 ?>
@@ -73,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                         <div class="form-group">
                                             <label for="nama_menu">Nama menu</label>
-                                            <input type="text" class="form-control" name="nama_menu" required>
+                                            <input type="text" class="form-control" name="menu" required>
                                         </div>
                                         <!-- /.content -->
 
