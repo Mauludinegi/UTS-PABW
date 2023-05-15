@@ -23,6 +23,9 @@
                 case 'home':
                     include "home/index.php";
                     break;
+                    case 'tentang':
+                        include "about/index.php";
+                        break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak di temukan !</h3></center>";
                     break;

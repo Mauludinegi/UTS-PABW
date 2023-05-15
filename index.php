@@ -42,9 +42,18 @@ $artikel = mysqli_query($mysqli, "SELECT tb_artikel.*,
                             limit 4
                             ");
 
-
+$berita =  mysqli_query($mysqli, "SELECT tb_berita.*,
+                          tb_kategori.nama_kategori,
+tb_users.nama_operator
+FROM tb_berita
+INNER JOIN tb_kategori ON tb_berita.id_kategori = tb_kategori.id
+INNER JOIN tb_users ON tb_berita.user_id = tb_users.id
+ORDER BY id DESC
+limit 4
+");
 $kategori = mysqli_query($mysqli, "SELECT * from tb_kategori");
 $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -123,9 +132,12 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
       <nav class="nav d-flex justify-content-between">
         <?php
         while ($data_menu = mysqli_fetch_array($menu)) {
+          $i = 1;
+          
         ?>
-          <a class="p-2 text-muted" href="#"><?= $data_menu['nama_menu'] ?></a>
-        <?php } ?>
+          <a class="p-2 text-muted" href="#<?= $i++ ?>"><?= $data_menu['nama_menu'] ?></a>
+          
+        <?php  } ?>
       </nav>
     </div>
 
@@ -141,7 +153,7 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
       </div>
     </div>
 
-    <div class="row mb-2">
+    <div class="row mb-2" id="1">
       <?php
       while ($data = mysqli_fetch_array($artikel)) {
       ?>
@@ -163,7 +175,7 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
     </div>
   </div>
 
-  <main role="main" class="container">
+  <main role="main" class="container" id="2">
 
     <div class="row">
 
@@ -172,7 +184,7 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
         while ($dataArtikel = mysqli_fetch_array($new_artikel)) {
         ?>
           <h3 class="pb-4 mb-4 font-italic border-bottom">
-            New Update Post
+            Artikel
           </h3>
 
           <div class="blog-post">
@@ -183,7 +195,24 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
             <p class="blog-post-meta"><?= date('d-M-Y', strtotime($dataArtikel['created_time'])) ?> by <a href="#"><?= $dataArtikel['nama_operator'] ?></a></p>
             <p class="text-justify"><?= $dataArtikel['content_artikel'] ?></p>
           </div><!-- /.blog-post -->
+        <?php  ?>
+        <?php  ?>
         <?php } ?>
+        <h3 class="pb-4 mb-4 font-italic border-bottom">
+            Berita
+          </h3>
+        <?php while ($dataBerita = mysqli_fetch_array($berita)): ?>
+
+
+          <div class="blog-post">
+            <h2 class="blog-post-title">
+              <?= $dataBerita['judul_berita'] ?>
+            </h2>
+            <p class="blog-post-meta"><?= date('d-M-Y', strtotime($dataBerita['created_time'])) ?> by <a href="#"><?= $dataBerita['nama_operator'] ?></a></p>
+            <p class="text-justify"><?= $dataBerita['content_berita'] ?></p>
+          </div><!-- /.berita-post -->
+          <?php endwhile ?>
+
         <nav class="blog-pagination">
           <ul class="pagination justify-content-center">
             <li class="page-item">
@@ -207,7 +236,7 @@ $menu = mysqli_query($mysqli, "SELECT * from tb_menu");
         </nav>
 
       </div><!-- /.row -->
-      <aside class="col-md-4 blog-sidebar">
+      <aside class="col-md-4 blog-sidebar" id="3">
         <div class="p-4 mb-3 bg-light rounded">
           <h4 class="font-italic">About</h4>
           <p class="mb-0">Pertanian adalah kegiatan pemanfaatan sumber daya hayati yang dilakukan manusia untuk menghasilkan bahan pangan, bahan baku industri, atau sumber energi, serta untuk mengelola lingkungan hidupnya.[1] Kegiatan pemanfaatan sumber daya hayati yang termasuk dalam pertanian biasa dipahami orang sebagai budidaya tanaman atau bercocok tanam serta pembesaran hewan ternak, meskipun cakupannya dapat pula berupa pemanfaatan mikroorganisme dan bioenzim dalam pengolahan produk lanjutan, seperti pembuatan keju dan tempe, atau sekadar ekstraksi semata, seperti penangkapan ikan atau eksploitasi huta</p>
