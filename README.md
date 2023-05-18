@@ -1,0 +1,1 @@
+kode ini dibawah naungan lisensi GIE CORP. Tolong jangan di perjualbelikan dan jadikan kodingan ini sebagai referensi saja. Dilarang keras memperjual belikan atau memperdagankan kodingan ini tanpa memberitahu authornya. jika ingin memperjual belikan minimal ada insentif untuk author. terimakasih atas pengertiannya
